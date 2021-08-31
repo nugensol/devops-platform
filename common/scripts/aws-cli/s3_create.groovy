@@ -7,3 +7,6 @@ void copy_s3_bucket(){
  sh "sh "aws s3 cp new.txt s3://linux-is-awesome"" 
 }
 
+void delete_s3_ducket(){
+  sh "aws s3 rm s3://linux-is-awesome/delete-me"
+}
