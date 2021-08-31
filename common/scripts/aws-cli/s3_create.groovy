@@ -82,6 +82,10 @@ def is_s3_bucket_exists(){
     returnStatus : true
   ) !=255
 }
+def multipart-file-upload-s3-bucket(){
+  //multipart file upload is needed for files size> 5MB
+  sh "aws s3api create-multipart-upload --bucket my-bucket --key 'multipart/01'"
+}
 
 void delete_s3_ducket(){
   sh "aws s3 rm s3://linux-is-awesome/delete-me"
