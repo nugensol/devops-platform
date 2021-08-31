@@ -65,8 +65,22 @@ void create_s3_bucket(bucket_details){
   }catch(Exception e){
   }
 }
-void copy_s3_bucket(){
- sh "sh "aws s3 cp new.txt s3://linux-is-awesome"" 
+void clear_and_copy_s3_bucket(srcFolderName){
+    //step 1 : clear
+  sh "aws s3 rm s3://bucket-name/doc --recursive"
+  //step 2 : copy
+ sh "aws s3 cp srcFolderName/. s3://linux-is-awesome"
+}
+
+void syncContents_to_s3_bucket(srcFolderName){
+  sh "aws s3 sync . s3://mybucket"
+}
+
+def is_s3_bucket_exists(){
+  def bucketFound = sh (
+    script: "aws s3api head-bucket --bucket my-bucket",
+    returnStatus : true
+  ) !=255
 }
 
 void delete_s3_ducket(){
